@@ -113,6 +113,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Book_Class.cs" />
+    <Compile Include="Models\Book_Code.cs" />
     <Compile Include="Models\Book_Data.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
