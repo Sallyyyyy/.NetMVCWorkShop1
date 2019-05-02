@@ -32,7 +32,7 @@ namespace MVCWorkShop1.Models
                 {
                     BookId = 1,
                     BookName = "在顛沛流離的世界你還有我啊",
-                    BookClassId = "7100",
+                    BookClassId = "Life",
                     BookAuthor = "PeterSu",
                     BookBoughtDate = "2018/12/25",
                     BookPublisher = "春風出版",
@@ -41,9 +41,9 @@ namespace MVCWorkShop1.Models
                 },
                 new Book_Data()
                 {
-                    BookId = 1,
+                    BookId = 2,
                     BookName = "表白",
-                    BookClassId = "7101",
+                    BookClassId = "Love",
                     BookAuthor = "Dorothy",
                     BookBoughtDate = "2018/12/25",
                     BookPublisher = "春風出版",
@@ -52,9 +52,9 @@ namespace MVCWorkShop1.Models
                 },
                 new Book_Data()
                 {
-                    BookId = 1,
+                    BookId = 3,
                     BookName = "鈕扣",
-                    BookClassId = "7102",
+                    BookClassId = "Love",
                     BookAuthor = "Dorothy",
                     BookBoughtDate = "2018/12/25",
                     BookPublisher = "春風出版",
@@ -63,9 +63,9 @@ namespace MVCWorkShop1.Models
                 },
                 new Book_Data()
                 {
-                    BookId = 1,
+                    BookId = 4,
                     BookName = "為你自己活一次",
-                    BookClassId = "7103",
+                    BookClassId = "Life",
                     BookAuthor = "蔡康永",
                     BookBoughtDate = "2018/12/25",
                     BookPublisher = "春風出版",
@@ -74,9 +74,9 @@ namespace MVCWorkShop1.Models
                 },
                 new Book_Data()
                 {
-                    BookId = 1,
+                    BookId = 5,
                     BookName = "如果可以簡單誰想要複雜",
-                    BookClassId = "7104",
+                    BookClassId = "Life",
                     BookAuthor = "PeterSu",
                     BookBoughtDate = "2018/12/25",
                     BookPublisher = "春風出版",
