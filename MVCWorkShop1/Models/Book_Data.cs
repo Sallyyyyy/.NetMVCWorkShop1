@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,12 +9,22 @@ namespace MVCWorkShop1.Models
 {
     public class Book_Data
     {
+        [DisplayName("書籍編號")]
+        [Required()]
         public int BookId { get; set; }
+        [DisplayName("書名")]
+        [Required()]
         public string BookName { get; set; }
+        [DisplayName("圖書類別編號")]
+        [Required()]
         public string BookClassId { get; set; }
+        [DisplayName("作者")]
         public string BookAuthor { get; set; }
+        [DisplayName("購書日期")]
         public string BookBoughtDate { get; set; }
+        [DisplayName("出版商")]
         public string BookPublisher { get; set; }
+        [DisplayName("內容簡介")]
         public string BookNote { get; set; }
         public string BookStatus { get; set; }
         public string BookKeeper { get; set; }

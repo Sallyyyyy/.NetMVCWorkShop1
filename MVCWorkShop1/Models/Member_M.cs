@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,8 +9,12 @@ namespace MVCWorkShop1.Models
 {
     public class Member_M
     {
+        [DisplayName("使用者編號")]
+        [Required()]
         public string UserID { get; set; }
+        [DisplayName("使用者中文名")]
         public string UserCName { get; set; }
+        [DisplayName("使用者英文名")]
         public string UserEName { get; set; }
         public string CreateUser { get; set; }
         public string CreateDate { get; set; }
@@ -51,5 +57,4 @@ namespace MVCWorkShop1.Models
                 }
             };
     }
-}
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,7 +9,11 @@ namespace MVCWorkShop1.Models
 {
     public class Book_Class
     {
+        [DisplayName("書籍類別編號")]
+        [Required()]
         public string BookClassId { get; set; }
+        [DisplayName("書籍類別名稱")]
+        [Required()]
         public string BookClassName { get; set; }
         public string CreateUser { get; set; }
         public string CreateDate { get; set; }
