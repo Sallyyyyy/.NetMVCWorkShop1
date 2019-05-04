@@ -6,7 +6,12 @@
 
 <h2>InsertBook</h2>
 
-@using (Html.BeginForm()) 
+@using (Ajax.BeginForm("InsertBook","Library",null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnFailure = "InsertFailure", //function name
+    OnSuccess = "InsertSuccess"
+}))
 {
     @Html.AntiForgeryToken()
     
@@ -77,6 +82,21 @@
         </div>
     </div>
 }
+    <script type="text/javascript">
+    //$(document).ready(function () {
+        function InsertSuccess(e) {
+            console.log(e);
+            alert("InsertSuccess");
+        }
+        function InsertFailure(e) {
+            alert("InsertFailure");
+        }
+        //});
+        var InsertSuccess = function (e) {
+            console.log(e);
+            alert("InsertSuccess");
+        }
+    </script>
 
 <div>
     @Html.ActionLink("Back to List", "Index")

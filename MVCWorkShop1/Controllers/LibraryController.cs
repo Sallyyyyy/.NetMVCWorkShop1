@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MVCWorkShop1.Models;
 
 namespace MVCWorkShop1.Controllers
 {
@@ -11,8 +12,10 @@ namespace MVCWorkShop1.Controllers
         // GET: Library
         public ActionResult Index()
         {
-            Models.Book_Data bookdata = new Models.Book_Data();
-            return View();
+            Book_Data bookdata = new Book_Data();
+            IList<Book_Data> list = new Book_Data().Main();
+            ViewBag.BookList = list;
+            return View(bookdata);
         }
         public ActionResult Search()
         {
@@ -26,6 +29,14 @@ namespace MVCWorkShop1.Controllers
         {
             ViewBag.Insert = "Insert";
             return View();
+        }
+        [HttpPost]
+        public ActionResult InsertBook(Book_Data bookdata)
+        {
+            int a = bookdata.BookId;
+            ViewBag.Insert = "Insert";
+            TempData["message"] = "存檔成功";
+            return View(bookdata);
         }
 
 

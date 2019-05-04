@@ -2,13 +2,14 @@
 @{
     ViewBag.Title = "Index";
 }
+
 <br />
 <center>
     @Html.ActionLink("新增書籍", "InsertBook", "Library", null, new { @class = "btn btn-warning" })
     @Html.ActionLink("查詢書籍", "Search", "Library", null, new { @class = "btn btn-success" })
 </center>
 <br />
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped" style="text-align:center;">
     <thead>
         <tr>
             <th>書籍名稱</th>
@@ -21,16 +22,20 @@
         </tr>
     </thead>
     <tbody>
-        @*@foreach (var item in (List<MVCWorkShop1.Models.Book_Data>)ViewBag.SearchResult)
+        @foreach (var item in (IList<MVCWorkShop1.Models.Book_Data>)ViewBag.BookList)
             {
-            <tr id='@item.BookId'>
-                <td>@item.BookName</td>
-                <td>@item.BookAuthor</td>
-                <td>@item.BookClassId</td>
-                <td>@item.BookPublisher</td>
-                <td>@item.BookStatus</td>
-            </tr>
-            }*@
+        <tr id='@item.BookId'>
+            <td>@item.BookName</td>
+            <td>@item.BookAuthor</td>
+            <td>@item.BookClassId</td>
+            <td>@item.BookPublisher</td>
+            <td>@item.BookStatus</td>
+            <td>@Html.ActionLink("修改", "UpdateEmployee", new { id = item.BookId }, new { @class = "btn btn-primary" })</td>
+            <td>
+                @Html.ActionLink("刪除", "UpdateEmployee", new { id = item.BookId }, new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+         }
     </tbody>
 </table>
 

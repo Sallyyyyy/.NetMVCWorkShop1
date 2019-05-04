@@ -33,12 +33,9 @@ namespace MVCWorkShop1.Models
         public string ModifyDate { get; set; }
         public string ModifyUser { get; set; }
 
-    }
-    class Program
-    {
-        static void Main(string[] args)
+        public IList<Book_Data> Main()
         {
-            IList<Book_Data> orders = new List<Book_Data>()
+            IList<Book_Data> books = new List<Book_Data>()
             {
                 new Book_Data()
                 {
@@ -96,6 +93,12 @@ namespace MVCWorkShop1.Models
                     BookStatus = "可以借出"
                 }
             };
+            return books;
         }
+
+    }
+    class Program
+    {
+        
     }
 }
