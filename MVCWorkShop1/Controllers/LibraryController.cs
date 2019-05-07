@@ -25,7 +25,7 @@ namespace MVCWorkShop1.Controllers
         public ActionResult Search()
         {
             Models.Book_Class bookclass = new Models.Book_Class();
-            IList<Book_Class> bookClassList = new Book_Class().GetBookClass();
+            IList<Book_Class> bookClassList = new Book_Class().GetBookClass().ToList();
             List<SelectListItem> selectClassList = new List<SelectListItem>();
             for(int i=0;i< bookClassList.Count; i++)
             {
@@ -43,13 +43,37 @@ namespace MVCWorkShop1.Controllers
         [HttpPost]
         public ActionResult Search(Book_Class bookclass)
         {
+            Console.WriteLine("123123");
             Book_Data bookData = new Book_Data();
             IList<Book_Data> bookDataList = new Book_Data().GetBooks();
-
-            var newList = bookDataList.Where(x => x.BookClassId.Equals(bookclass)).ToList();
+            IList<SelectListItem> booksList = new List<SelectListItem>();
+            var newList = bookDataList.Where(x => x.BookClassId.Equals(bookclass.BookClassName)).ToList();
+            foreach (var item in newList.ToList())
+            {
+                booksList.Add(new SelectListItem()
+                {
+                    Value = item.BookClassId,
+                    Text = item.BookName
+                });
+            }
             Console.WriteLine(newList.Count.ToString());
-            ViewBag.SelectClassList = newList;
-            return View(bookclass);
+            ViewBag.SelectClassList = booksList;
+            if(booksList != null)
+            {
+                string x = "";
+                for (int i=0;i< booksList.Count;i++)
+                {
+                   
+                    x += booksList[i].Text + " ";
+                }
+                return Content(x);
+
+            }
+            else
+            {
+                return Content("查無資料");
+            }
+            
         }
         //新增書籍畫面
         public ActionResult InsertBook()
