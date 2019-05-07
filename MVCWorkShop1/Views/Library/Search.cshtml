@@ -7,25 +7,18 @@
 <h2>Search</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Search","Library", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.BookClassId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.BookClassId, new { @type = "Text", @style = "text-align:left" })
-                @Html.ValidationMessageFor(model => model.BookClassId, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.BookClassName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.BookClassName, (List<SelectListItem>)ViewBag.BookClassList, "Choose..")
+                @Html.DropDownListFor(model => model.BookClassName, (List<SelectListItem>)ViewBag.SelectClassList)
                 @Html.ValidationMessageFor(model => model.BookClassName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,7 +26,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="查詢" class="btn btn-default" />
             </div>
         </div>
     </div>

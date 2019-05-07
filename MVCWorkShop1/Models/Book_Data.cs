@@ -33,7 +33,7 @@ namespace MVCWorkShop1.Models
         public string ModifyDate { get; set; }
         public string ModifyUser { get; set; }
 
-        public IList<Book_Data> Main()
+        public IList<Book_Data> GetBooks()
         {
             IList<Book_Data> books = new List<Book_Data>()
             {
@@ -97,8 +97,5 @@ namespace MVCWorkShop1.Models
         }
 
     }
-    class Program
-    {
-        
-    }
+  
 }

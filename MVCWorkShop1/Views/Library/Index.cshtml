@@ -1,6 +1,7 @@
 ﻿@model MVCWorkShop1.Models.Book_Data
 @{
     ViewBag.Title = "Index";
+    var BooksList = ViewBag.BooksList;
 }
 
 <br />
@@ -22,8 +23,8 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in (IList<MVCWorkShop1.Models.Book_Data>)ViewBag.BookList)
-            {
+        @foreach (var item in BooksList)
+        {
         <tr id='@item.BookId'>
             <td>@item.BookName</td>
             <td>@item.BookAuthor</td>
@@ -38,5 +39,11 @@
          }
     </tbody>
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    
+    });
+</script>
 
 

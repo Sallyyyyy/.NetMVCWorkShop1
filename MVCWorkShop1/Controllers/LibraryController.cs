@@ -12,24 +12,52 @@ namespace MVCWorkShop1.Controllers
         // GET: Library
         public ActionResult Index()
         {
-            Book_Data bookdata = new Book_Data();
-            IList<Book_Data> list = new Book_Data().Main();
-            ViewBag.BookList = list;
-            return View(bookdata);
+            Book_Data bookData = new Book_Data();
+            IList<Book_Data> bookDataList = new Book_Data().GetBooks();
+            Book_Class bookClass = new Book_Class();
+            //IList<Book_Class> bookClassList = new Book_Class().GetBookClass();
+            ViewBag.BooksList = bookDataList;
+            //ViewBag.BookClassList = bookClassList;
+            return View();
         }
+        
+        //查詢頁面
         public ActionResult Search()
         {
             Models.Book_Class bookclass = new Models.Book_Class();
-            List<SelectListItem> bookclasslist = new List<SelectListItem>();
+            IList<Book_Class> bookClassList = new Book_Class().GetBookClass();
+            List<SelectListItem> selectClassList = new List<SelectListItem>();
+            for(int i=0;i< bookClassList.Count; i++)
+            {
+                selectClassList.Add(new SelectListItem()
+                {
+                    Value = (bookClassList[i].BookClassId).ToString(),
+                    Text = (bookClassList[i].BookClassName).ToString()
+                });
+            }
+            
+            ViewBag.SelectClassList = selectClassList;
+            return View();
+        }
+        //查詢功能
+        [HttpPost]
+        public ActionResult Search(Book_Class bookclass)
+        {
+            Book_Data bookData = new Book_Data();
+            IList<Book_Data> bookDataList = new Book_Data().GetBooks();
 
-            ViewBag.BookClassList = bookclasslist;
+            var newList = bookDataList.Where(x => x.BookClassId.Equals(bookclass)).ToList();
+            Console.WriteLine(newList.Count.ToString());
+            ViewBag.SelectClassList = newList;
             return View(bookclass);
         }
+        //新增書籍畫面
         public ActionResult InsertBook()
         {
             ViewBag.Insert = "Insert";
             return View();
         }
+        //新增書籍功能
         [HttpPost]
         public ActionResult InsertBook(Book_Data bookdata)
         {
