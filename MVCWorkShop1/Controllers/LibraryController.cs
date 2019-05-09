@@ -99,26 +99,6 @@ namespace MVCWorkShop1.Controllers
             ViewBag.BooksList = bookList;
             return View("Index");
         }
-        public ActionResult DeleteBook(Book_Data bookdata)
-        {
-            IList<Book_Data> bookList = new Book_Data().GetBooks();
-            bookList.Remove(new Book_Data() { BookId =  bookdata.BookId});
-
-            //查詢的下拉式選單
-            List<SelectListItem> selectClassList = new List<SelectListItem>();
-            IList<Book_Class> bookClassList = new Book_Class().GetBookClass().ToList();
-            for (int i = 0; i < bookClassList.Count; i++)
-            {
-                selectClassList.Add(new SelectListItem()
-                {
-                    Value = (bookClassList[i].BookClassId).ToString(),
-                    Text = (bookClassList[i].BookClassName).ToString()
-                });
-            }
-            ViewBag.SelectClassList = selectClassList;
-            ViewBag.BooksList = bookList;
-            return View("Index");
-        }
         public ActionResult UpdateBook(Book_Data bookdata)
         {
             return Content("UpdateBook");

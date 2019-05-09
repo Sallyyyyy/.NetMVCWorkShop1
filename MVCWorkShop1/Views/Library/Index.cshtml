@@ -37,46 +37,48 @@
 
     @Html.ActionLink("新增書籍", "InsertBook", "Library", null, new { @class = "btn btn-warning" })
 </center>
-    <br />
-    <table class="table table-bordered table-striped" style="text-align:center;" id="books_table">
-        <thead>
-            <tr>
-                <th>書籍名稱</th>
-                <th>作者</th>
-                <th>圖書類別編號</th>
-                <th>出版社</th>
-                <th>狀態</th>
-                <td></td>
-                <td></td>
+<br />
+<table class="table table-bordered table-striped" style="text-align:center;" id="books_table">
+    <thead>
+        <tr>
+            <th>書籍名稱</th>
+            <th>作者</th>
+            <th>圖書類別編號</th>
+            <th>出版社</th>
+            <th>狀態</th>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in BooksList)
+        {
+            <tr id='@item.BookId'>
+                <td>@item.BookName</td>
+                <td>@item.BookAuthor</td>
+                <td>@item.BookClassId</td>
+                <td>@item.BookPublisher</td>
+                <td>@item.BookStatus</td>
+                <td>@Html.ActionLink("修改", "UpdateBook", new { id = item.BookId }, new { @class = "btn btn-primary" })</td>
+                <td>
+                    <button class="deletebtn btn btn-primary" data-toggle="modal" data-target="#exampleModal">刪除</button>
+                    <input class="hidEmployeeId" type="hidden" value='@item.BookId' />
+                </td>
+                <td>@item.BookId</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in BooksList)
-            {
-                <tr id='@item.BookId'>
-                    <td>@item.BookName</td>
-                    <td>@item.BookAuthor</td>
-                    <td>@item.BookClassId</td>
-                    <td>@item.BookPublisher</td>
-                    <td>@item.BookStatus</td>
-                    <td>@Html.ActionLink("修改", "UpdateBook", new { id = item.BookId }, new { @class = "btn btn-primary" })</td>
-                    <td>
-                        <a id="btnDelete" class="btn btn-primary" href="#" onclick="test(this,'@item.BookId');">刪除</a>
-                        <input class="hidEmployeeId" type="hidden" value='@item.BookId' />
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#books_table').bootstrapTable({
-                pagination: true, //是否顯示分頁
-                pageSize: 2 //每頁的記錄行數
-            });
-       
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".deletebtn").click(function () {
+            $(this).closest('tr').remove();
+            alert("刪除成功");
         });
-    </script>
+    });
+
+</script>
 
 
