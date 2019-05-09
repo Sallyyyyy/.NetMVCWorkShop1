@@ -27,6 +27,7 @@ namespace MVCWorkShop1.Models
         [DisplayName("內容簡介")]
         public string BookNote { get; set; }
         public string BookStatus { get; set; }
+        [RequiredIf()]
         public string BookKeeper { get; set; }
         public string CreateDate { get; set; }
         public string CreateUser { get; set; }
@@ -95,7 +96,12 @@ namespace MVCWorkShop1.Models
             };
             return books;
         }
+        
 
     }
-  
+    
+
+    internal class RequiredIfAttribute : Attribute
+    {
+    }
 }

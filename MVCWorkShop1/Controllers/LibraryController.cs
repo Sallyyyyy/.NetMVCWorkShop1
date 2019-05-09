@@ -15,19 +15,9 @@ namespace MVCWorkShop1.Controllers
             Book_Data bookData = new Book_Data();
             IList<Book_Data> bookDataList = new Book_Data().GetBooks();
             Book_Class bookClass = new Book_Class();
-            //IList<Book_Class> bookClassList = new Book_Class().GetBookClass();
-            ViewBag.BooksList = bookDataList;
-            //ViewBag.BookClassList = bookClassList;
-            return View();
-        }
-        
-        //查詢頁面
-        public ActionResult Search()
-        {
-            Models.Book_Class bookclass = new Models.Book_Class();
-            IList<Book_Class> bookClassList = new Book_Class().GetBookClass().ToList();
             List<SelectListItem> selectClassList = new List<SelectListItem>();
-            for(int i=0;i< bookClassList.Count; i++)
+            IList<Book_Class> bookClassList = new Book_Class().GetBookClass().ToList();
+            for (int i = 0; i < bookClassList.Count; i++)
             {
                 selectClassList.Add(new SelectListItem()
                 {
@@ -35,47 +25,36 @@ namespace MVCWorkShop1.Controllers
                     Text = (bookClassList[i].BookClassName).ToString()
                 });
             }
-            
-            ViewBag.SelectClassList = selectClassList;
+            ViewBag.SelectClassList = selectClassList; //下拉式選單
+            ViewBag.BooksList = bookDataList;  //書籍資料清單
             return View();
         }
         //查詢功能
         [HttpPost]
-        public ActionResult Search(Book_Class bookclass)
+        public ActionResult Index(Book_Class bookclass,Book_Data books)
         {
-            Book_Data bookData = new Book_Data();
             IList<Book_Data> bookDataList = new Book_Data().GetBooks();
-            IList<SelectListItem> booksList = new List<SelectListItem>();
-            var newList = bookDataList.Where(x => x.BookClassId.Equals(bookclass.BookClassName)).ToList();
-            foreach (var item in newList.ToList())
+            IList<Book_Data> newList = bookDataList.Where(x => x.BookClassId.Equals(bookclass.BookClassName)).ToList();
+            ViewBag.BooksList = newList;
+            //查詢的下拉式選單
+            List<SelectListItem> selectClassList = new List<SelectListItem>();
+            IList<Book_Class> bookClassList = new Book_Class().GetBookClass().ToList();
+            for (int i = 0; i < bookClassList.Count; i++)
             {
-                booksList.Add(new SelectListItem()
+                selectClassList.Add(new SelectListItem()
                 {
-                    Value = item.BookClassId,
-                    Text = item.BookName
+                    Value = (bookClassList[i].BookClassId).ToString(),
+                    Text = (bookClassList[i].BookClassName).ToString()
                 });
             }
-            ViewBag.SelectClassList = booksList;
-            if(booksList.Count != 0)
-            {
-                string x = "";
-                for (int i=0;i< booksList.Count;i++)
-                {
-                   
-                    x += booksList[i].Text + " ";
-                }
-                return Content(x);
-            }
-            else
-            {
-                return Content("查無資料");
-            }
-            
+            ViewBag.SelectClassList = selectClassList;
+            return View();
         }
+
         //新增書籍畫面
         public ActionResult InsertBook()
         {
-            IList<Book_Class> bookClassList = new Book_Class().GetBookClass().ToList();
+            IList<Book_Class> bookClassList = new Book_Class().GetBookClass();
             List<SelectListItem> selectClassList = new List<SelectListItem>();
             for (int i = 0; i < bookClassList.Count; i++)
             {
@@ -93,6 +72,19 @@ namespace MVCWorkShop1.Controllers
         [HttpPost]
         public ActionResult InsertBook(Book_Data bookdata)
         {
+            //查詢的下拉式選單
+            List<SelectListItem> selectClassList = new List<SelectListItem>();
+            IList<Book_Class> bookClassList = new Book_Class().GetBookClass().ToList();
+            for (int i = 0; i < bookClassList.Count; i++)
+            {
+                selectClassList.Add(new SelectListItem()
+                {
+                    Value = (bookClassList[i].BookClassId).ToString(),
+                    Text = (bookClassList[i].BookClassName).ToString()
+                });
+            }
+            ViewBag.SelectClassList = selectClassList;
+            //新增
             IList<Book_Data> bookList = new Book_Data().GetBooks();
             bookList.Add(new Book_Data() {
                 BookId = bookdata.BookId,
@@ -104,8 +96,32 @@ namespace MVCWorkShop1.Controllers
                 BookNote = bookdata.BookNote,
                 BookStatus = "可以借出"
             });
-            
-            return Content("<html>name:"+bookList[5].BookName+"</br>class:"+bookList[5].BookClassId+"</html>");
+            ViewBag.BooksList = bookList;
+            return View("Index");
+        }
+        public ActionResult DeleteBook(Book_Data bookdata)
+        {
+            IList<Book_Data> bookList = new Book_Data().GetBooks();
+            bookList.Remove(new Book_Data() { BookId =  bookdata.BookId});
+
+            //查詢的下拉式選單
+            List<SelectListItem> selectClassList = new List<SelectListItem>();
+            IList<Book_Class> bookClassList = new Book_Class().GetBookClass().ToList();
+            for (int i = 0; i < bookClassList.Count; i++)
+            {
+                selectClassList.Add(new SelectListItem()
+                {
+                    Value = (bookClassList[i].BookClassId).ToString(),
+                    Text = (bookClassList[i].BookClassName).ToString()
+                });
+            }
+            ViewBag.SelectClassList = selectClassList;
+            ViewBag.BooksList = bookList;
+            return View("Index");
+        }
+        public ActionResult UpdateBook(Book_Data bookdata)
+        {
+            return Content("UpdateBook");
         }
 
 

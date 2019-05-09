@@ -1,49 +1,82 @@
-﻿@model MVCWorkShop1.Models.Book_Data
+﻿@model MVCWorkShop1.Models.Book_Class
 @{
     ViewBag.Title = "Index";
     var BooksList = ViewBag.BooksList;
 }
-
-<br />
+<br>
 <center>
-    @Html.ActionLink("新增書籍", "InsertBook", "Library", null, new { @class = "btn btn-warning" })
-    @Html.ActionLink("查詢書籍", "Search", "Library", null, new { @class = "btn btn-success" })
-</center>
-<br />
-<table class="table table-bordered table-striped" style="text-align:center;">
-    <thead>
-        <tr>
-            <th>書籍名稱</th>
-            <th>作者</th>
-            <th>圖書類別編號</th>
-            <th>出版社</th>
-            <th>狀態</th>
-            <td></td>
-            <td></td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in BooksList)
+    <div class="container" style="background-color:#FFC8B4;border-radius:10px;">
+        <br>
+        <h3>書籍查詢</h3>
+        @using (Html.BeginForm("Index", "Library", FormMethod.Post))
         {
-        <tr id='@item.BookId'>
-            <td>@item.BookName</td>
-            <td>@item.BookAuthor</td>
-            <td>@item.BookClassId</td>
-            <td>@item.BookPublisher</td>
-            <td>@item.BookStatus</td>
-            <td>@Html.ActionLink("修改", "UpdateEmployee", new { id = item.BookId }, new { @class = "btn btn-primary" })</td>
-            <td>
-                @Html.ActionLink("刪除", "UpdateEmployee", new { id = item.BookId }, new { @class = "btn btn-primary" })
-            </td>
-        </tr>
-         }
-    </tbody>
-</table>
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<script type="text/javascript">
-    $(document).ready(function () {
-    
-    });
-</script>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BookClassName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.BookClassName, (List<SelectListItem>)ViewBag.SelectClassList, new { @class = "dropdown-toggle" })
+                        @Html.ValidationMessageFor(model => model.BookClassName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="查詢" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        }
+        <br>
+    </div>
+    <br />
+
+    @Html.ActionLink("新增書籍", "InsertBook", "Library", null, new { @class = "btn btn-warning" })
+</center>
+    <br />
+    <table class="table table-bordered table-striped" style="text-align:center;" id="books_table">
+        <thead>
+            <tr>
+                <th>書籍名稱</th>
+                <th>作者</th>
+                <th>圖書類別編號</th>
+                <th>出版社</th>
+                <th>狀態</th>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in BooksList)
+            {
+                <tr id='@item.BookId'>
+                    <td>@item.BookName</td>
+                    <td>@item.BookAuthor</td>
+                    <td>@item.BookClassId</td>
+                    <td>@item.BookPublisher</td>
+                    <td>@item.BookStatus</td>
+                    <td>@Html.ActionLink("修改", "UpdateBook", new { id = item.BookId }, new { @class = "btn btn-primary" })</td>
+                    <td>
+                        <a id="btnDelete" class="btn btn-primary" href="#" onclick="test(this,'@item.BookId');">刪除</a>
+                        <input class="hidEmployeeId" type="hidden" value='@item.BookId' />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#books_table').bootstrapTable({
+                pagination: true, //是否顯示分頁
+                pageSize: 2 //每頁的記錄行數
+            });
+       
+        });
+    </script>
 
 
